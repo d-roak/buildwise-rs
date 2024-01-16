@@ -1,3 +1,6 @@
+use crate::error::Result;
+use crate::openai::completion;
+
 use axum::{
     routing::get,
     Router,
@@ -8,6 +11,6 @@ pub fn routes() -> Router {
         .route("/", get(root))
 }
 
-async fn root() -> String {
-    "Hello, World!".into()
+async fn root() -> Result<String> {
+    Ok(completion::query("".into(), "string[] cars = [\"ford\", \"audi\", \"chevrolet\"];".into())?)
 }

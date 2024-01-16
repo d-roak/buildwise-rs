@@ -2,14 +2,18 @@ use axum::{
     routing::get,
     Router,
 };
-
-use std::env;
+use dotenvy::dotenv;
 
 mod auth;
+mod error;
+mod openai;
 mod v1;
 
 #[tokio::main]
 async fn main() {
+    dotenv().expect(".env file not found");
+    //let res = openai::fine_tuning::run().unwrap();
+    //println!("{}", res);
     let app = Router::new()
         .route("/health", get(healthcheck))
         .nest("/v1", v1::routes());

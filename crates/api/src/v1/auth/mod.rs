@@ -1,5 +1,8 @@
+use crate::error::Result;
+
 use axum::{
-    routing::get,
+    extract::Json,
+    routing::{delete, post},
     Router,
 };
 
@@ -7,23 +10,16 @@ use crate::auth;
 
 pub fn routes() -> Router {
     Router::new()
-        .route("/", get(root))
+        .route("/api_key", delete(delete_api_key))
+        .route("/api_key", post(create_api_key))
 }
 
-async fn root() -> String {
-    "Hello, World!".into()
+async fn create_api_key(Json(payload): Json<auth::APIKey>) -> Result<String> {
+    // get authorization header
+
+    Ok(auth::APIKey::new(payload).key)
 }
 
-async fn create_api_key() -> String {
-    "create api key".into()
-}
-
-async fn delete_api_key() -> String {
-    "delete api key".into()
-}
-
-async fn valid_key(admin: Option<bool>) -> bool {
-    let admin = admin.unwrap_or(false);
-    let api_key = auth::get_api_key();
-    false
+async fn delete_api_key() {
+    auth::APIKey::delete();
 }
