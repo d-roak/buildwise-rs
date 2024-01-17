@@ -9,15 +9,24 @@ pub struct APIKey {
 }
 
 impl APIKey {
-    pub fn delete() -> bool {
-        true
-    }
-
-    pub fn new(payload: APIKey) -> Self {
+    pub fn new() -> Self {
         Self {
-            admin: payload.admin,
+            admin: false,
             key: Uuid::new_v4().into(),
-            scope: payload.scope,
+            scope: vec![],
         }
     }
+}
+
+// use diesel for these operations
+pub fn get_api_key(key: String) -> APIKey {
+    APIKey {
+        admin: false,
+        key,
+        scope: vec![],
+    }
+}
+
+pub fn delete_api_key() -> bool {
+    true
 }
