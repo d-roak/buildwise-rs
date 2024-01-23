@@ -3,17 +3,20 @@ use crate::openai::completion;
 
 use axum::{
     extract::Request,
-    routing::get,
+    routing::post,
     Router,
 };
 
 pub fn routes() -> Router {
     Router::new()
-        .route("/", get(root))
+        .route("/gh_action", post(gh_action))
+        .route("/git_repo", post(git_repo))
 }
 
-async fn root(req: Request) -> Result<String> {
-    println!("{:?}", req.headers().get("Authorization"));
+async fn gh_action(body: String) -> Result<String> {
+    Ok(completion::query("".into(), body)?)
+}
 
-    Ok(completion::query("".into(), "string[] cars = [\"ford\", \"audi\", \"chevrolet\"];".into())?)
+async fn git_repo(url: String) -> Result<String> {
+    Ok("Soon!".into())
 }
