@@ -10,6 +10,7 @@ members = [
 anyhow = { version = "1.0.79" }
 axum = { version = "0.7.3" }
 dotenvy = { version = "0.15.7", default-features = false }
+git2 = { version = "0.18.1", default-features = false }
 openai-api-rs = { version = "4.0.0", default-features = false }
 # openai-api-rs = { git = "https://github.com/d-roak/openai-api-rs", default-features = false }
 serde = { version = "1.0", default-features = false, features = ["derive"] }

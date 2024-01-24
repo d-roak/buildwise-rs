@@ -5,7 +5,9 @@ use axum::{
 use dotenvy::dotenv;
 
 mod auth;
+mod constants;
 mod error;
+mod git;
 mod openai;
 mod v1;
 

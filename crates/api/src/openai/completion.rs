@@ -4,9 +4,10 @@ use openai_api_rs::v1::chat_completion::{self, ChatCompletionRequest};
 use std::env;
 
 pub fn query(_model: String, input: String) -> Result<String> {
-    let client = Client::new(env::var("OPENAI_API_KEY").unwrap().to_string());
+    let client = Client::new(env::var("OPENAI_API_KEY")?.to_string());
     let req = ChatCompletionRequest::new(
-        "ft:gpt-3.5-turbo-1106:ziku::8kDPf9Fi".into(),
+        // TODO: use dynamic model with fine tuned data
+        env::var("OPENAI_MODEL")?,
         vec![
             chat_completion::ChatCompletionMessage {
                 role: chat_completion::MessageRole::system,
