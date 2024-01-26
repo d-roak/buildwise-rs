@@ -7,13 +7,14 @@ use axum::{
     Router,
 };
 
-use crate::git::repos;
+use crate::git::{parse, repos};
 
 pub fn routes() -> Router {
     Router::new()
-        .route("/repos", get(list_repos))
-        .route("/repos", post(add_repo))
-        .route("/repos/:name", delete(delete_repo))
+        .route("/", get(list_repos))
+        .route("/", post(add_repo))
+        .route("/:name", delete(delete_repo))
+        .route("/:name", get(test))
 }
 
 async fn add_repo(body: String) -> Result<()> {
@@ -26,4 +27,8 @@ async fn delete_repo(Path(name): Path<String>) -> Result<()> {
 
 async fn list_repos() -> Result<Json<Vec<String>>> {
     Ok(Json(repos::list_repos()?))
+}
+
+async fn test(Path(name): Path<String>) -> Result<Json<Vec<String>>> {
+    Ok(Json(parse::get_src_files(name)?))
 }

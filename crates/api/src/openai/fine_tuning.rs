@@ -1,11 +1,6 @@
 use anyhow::Result;
 use openai_api_rs::v1::api::Client;
-use openai_api_rs::v1::fine_tuning::{
-    CreateFineTuningJobRequest,
-    ListFineTuningJobEventsRequest,
-    RetrieveFineTuningJobRequest,
-    CancelFineTuningJobRequest,
-};
+use openai_api_rs::v1::fine_tuning::CreateFineTuningJobRequest;
 use openai_api_rs::v1::common::GPT3_5_TURBO_1106;
 use std::env;
 
